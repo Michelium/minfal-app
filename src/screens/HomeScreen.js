@@ -1,11 +1,11 @@
 import React from 'react';
-
 import { View, Text, StyleSheet } from 'react-native';
+import MapScreen from './MapScreen';
 
 const HomeScreen = () => {
   return (
     <View style={ styles.container }>
-      <Text style={ styles.title }>HomeScreen</Text>
+      <MapScreen />
     </View>
   );
 }
@@ -13,7 +13,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#312e38',
   },
