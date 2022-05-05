@@ -6,7 +6,7 @@ import map_styles from "./../config/map_styles";
 import axios from "axios";
 // import MarkerIcon from './../../assets/icons/edit-map-marker-icon.svg'
 
-const MapScreen = () => {
+const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
   const [region, setRegion] = useState({
     latitude: 52.10095646428125,
     longitude: 4.3380762590705,
@@ -21,7 +21,7 @@ const MapScreen = () => {
       const response = await axios.post("https://app.minfal.nl/api/companies");
 
       const data = await response.data;
-  
+
       let tempMarkers = [];
       data.map((marker, index) => {
         if (marker.latitude && marker.longitude) {
@@ -50,15 +50,18 @@ const MapScreen = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         customMapStyle={map_styles}
-        region={region}
+        initialRegion={region}
       >
         {markers.map((location, index) => (
           <Marker
             key={index}
-            // onPress={() => { onMarkerPress(); setCurrentMarker(location.id) }}
+            onPress={() => {
+              onMarkerPress();
+              setCurrentLocation(location.id);
+            }}
             coordinate={{
               latitude: location.lat,
-              longitude: location.long
+              longitude: location.long,
             }}
           >
             {/* <MarkerIcon /> */}
