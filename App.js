@@ -90,7 +90,7 @@ const App = () => {
           }}
         />
         <Drawer.Screen
-          name="ListScreen"
+          name="List"
           component={ListScreen}
           options={{
             headerTitle: "Winkels in de buurt",

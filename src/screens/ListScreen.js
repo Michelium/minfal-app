@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import LocationDetailSheet from "../components/location/LocationDetailSheet";
 import * as Colors from "./../config/colors";
 
 const ListScreen = (props) => {
   const [companies, setCompanies] = useState([]);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const _handleShowDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   const fetchCompanies = () => {
     const companies = props.route.params.companies;
@@ -13,21 +20,35 @@ const ListScreen = (props) => {
       return;
     }
 
-    // todo axios fetch
+    // todo axios fetch of all companies when this list will be in the drawer menu
   };
 
   const renderData = (company) => {
     return (
-      <TouchableOpacity style={styles.listItem}>
-        <Image source={{ uri: 'https://app.minfal.nl/uploads/images/' + company.logo }} style={{ width: 60, height: 60, marginRight: 10 }} />
+      <TouchableOpacity
+        style={styles.listItem}
+        onPress={() => {
+          setCurrentLocation(company.id);
+          _handleShowDetails();
+        }}
+      >
+        <Image
+          source={{
+            uri: "https://app.minfal.nl/uploads/images/" + company.logo,
+          }}
+          style={{ width: 60, height: 60, marginRight: 10 }}
+        />
         <View style={{ alignItems: "flex-start", flex: 1 }}>
-          <Text lg style={{ fontWeight: "bold", color: Colors.black }}>{company.name}</Text>
-          <Text sm style={{color: Colors.black}}>{company.location_name}</Text>
+          <Text lg style={{ fontWeight: "bold", color: Colors.black }}>
+            {company.name}
+          </Text>
+          <Text sm style={{ color: Colors.black }}>
+            {company.location_name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
-  }
-
+  };
 
   useEffect(() => {
     fetchCompanies();
@@ -35,18 +56,27 @@ const ListScreen = (props) => {
 
   return (
     <View style={styles.container}>
-        <FlatList 
-          data={companies}
-          renderItem={({ item }) => {
-            return renderData(item);
-          }}
-          keyExtractor={item => `${item.id}` }
+      <FlatList
+        data={companies}
+        renderItem={({ item }) => {
+          return renderData(item);
+        }}
+        keyExtractor={(item) => `${item.id}`}
+      />
+      {currentLocation && showDetails && (
+        <LocationDetailSheet
+          location={currentLocation}
+          onClose={_handleShowDetails}
         />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   listItem: {
     margin: 10,
     paddingHorizontal: 10,

@@ -27,7 +27,7 @@ const FilterScreen = ({navigation}) => {
           rating: rating,
         },
       }).then((response) => {
-        navigation.navigate('ListScreen', {
+        navigation.navigate('List', {
           companies: response.data
         })
       });

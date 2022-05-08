@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import MapView from "react-native-maps";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Button, StyleSheet, Dimensions } from "react-native";
 import map_styles from "./../config/map_styles";
 import axios from "axios";
 // import MarkerIcon from './../../assets/icons/edit-map-marker-icon.svg'
+import FilterIcon from "./../../assets/icons/edit-filter-icon.svg";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
+const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
   const [region, setRegion] = useState({
     latitude: 52.10095646428125,
     longitude: 4.3380762590705,
@@ -75,13 +77,28 @@ const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#312e38",
+    overflow: "hidden",
   },
   map: {
+    flex: 1,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  filterBtn: {
+    width: 75,
+    height: 75,
+    right: 0,
+    bottom: "8%",
+    marginRight: 20,
+    borderRadius: 75 / 2,
+    position: "absolute",
+    borderWidth: 1,
+    backgroundColor: "#fff",
+    borderColor: "rgba(201,201,201, 1)",
+  },
+  filterBtnImg: {
+    width: 60,
+    height: 37,
   },
 });
 
