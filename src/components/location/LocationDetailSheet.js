@@ -22,10 +22,6 @@ const LocationDetailSheet = ({ location }) => {
   const fullHeight = SCREEN_HEIGHT - 400;
   const snapPoints = useMemo(() => [fullHeight, fullHeight], [fullHeight]);
 
-  const handleSheetChanges = useCallback((index) => {
-    // console.log("handleSheetChanges", index);
-  }, []);
-
   const [company, setCompany] = useState({});
 
   const getCompanyInfo = async () => {
@@ -58,7 +54,6 @@ const LocationDetailSheet = ({ location }) => {
         ref={ref}
         index={1}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
         enablePanDownToClose={true}
       >
         <BottomSheetScrollView showsVerticalScrollIndicator={false}>

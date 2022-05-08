@@ -6,12 +6,35 @@ import * as Colors from "./../config/colors";
 import FilterFoodType from "./../components/filter/FilterFoodType";
 import FilterRatings from "./../components/filter/FilterRatings";
 import FilterFooter from "./../components/filter/FilterFooter";
+import axios from "axios";
 
-const FilterScreen = () => {
+const FilterScreen = ({navigation}) => {
   const [category, setCategory] = useState("alle");
-  const [distance, setDistance] = useState([3]);
   const [rating, setRating] = useState("alle");
   const [opened, setOpened] = useState(false);
+
+  const fetchCompanies = async () => {
+    try {
+      axios({
+        method: "post",
+        url: "https://app.minfal.nl/api/companies",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        data: {
+          category: category,
+          rating: rating,
+        },
+      }).then((response) => {
+        navigation.navigate('ListScreen', {
+          companies: response.data
+        })
+      });
+    } catch (error) {
+      alert(error);
+    };
+  };
 
   return (
     <View style={styles.container}>
@@ -22,7 +45,7 @@ const FilterScreen = () => {
         <FilterFooter opened={opened} setOpened={setOpened} />
       </View>
       <View>
-        <TouchableOpacity style={styles.searchButton}>
+        <TouchableOpacity onPress={fetchCompanies} style={styles.searchButton}>
           <Text style={styles.searchButtonText}>Zoeken</Text>
         </TouchableOpacity>
       </View>

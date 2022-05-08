@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./src/screens/HomeScreen";
@@ -10,8 +9,8 @@ import HelpIcon from "./assets/icons/nav-help-icon.svg";
 import HandShakeIcon from "./assets/icons/nav-handshake-icon.svg";
 import BuildingIcon from "./assets/icons/nav-building-icon.svg";
 import SettingsIcon from "./assets/icons/nav-settings-icon.svg";
-import { StatusBar } from "expo-status-bar";
 import FilterScreen from "./src/screens/FilterScreen";
+import ListScreen from "./src/screens/ListScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -88,6 +87,14 @@ const App = () => {
             headerTitle: "Instellingen",
             drawerLabel: "Instellingen",
             drawerIcon: () => <SettingsIcon />,
+          }}
+        />
+        <Drawer.Screen
+          name="ListScreen"
+          component={ListScreen}
+          options={{
+            headerTitle: "Winkels in de buurt",
+            drawerItemStyle: { display: "none" },
           }}
         />
       </Drawer.Navigator>
