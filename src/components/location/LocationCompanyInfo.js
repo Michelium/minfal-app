@@ -16,35 +16,43 @@ const LocationCompanyInfo = ({
   const getPeriods = async () => {
     try {
       const d = new Date();
-      const day = d.getDay();
-
+      let day = d.getDay();
+      day = day === 0 ? 7 : day;
       let period = {};
       if (periods !== undefined) {
         periods.forEach((element) => {
-          if (element.week_day === day - 1) {
+          console.log(element.week_day);
+          if (element.week_day === day) {
             period = element;
           }
         });
       }
 
       setPeriod(period);
+      console.log(period);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
 
-  function isOpen(startTime, endTime) {
-    if (startTime && endTime) {
+  function isOpen(period) {
+    if (period.open_all_day === true) {
+      return true;
+    } 
+    if (period.closed === true) {
+      return false;
+    }
+    if (period.open_at && period.close_at) {
       let currentDate = new Date();
 
       let startDate = new Date(currentDate.getTime());
-      startDate.setHours(startTime.split(":")[0]);
-      startDate.setMinutes(startTime.split(":")[1]);
+      startDate.setHours(period.open_at.split(":")[0]);
+      startDate.setMinutes(period.open_at.split(":")[1]);
 
       let endDate = new Date(currentDate.getTime());
-      endDate.setHours(endTime.split(":")[0]);
-      endDate.setMinutes(endTime.split(":")[1]);
+      endDate.setHours(period.close_at.split(":")[0]);
+      endDate.setMinutes(period.close_at.split(":")[1]);
 
       return startDate < currentDate && endDate > currentDate;
     } else {
@@ -82,12 +90,12 @@ const LocationCompanyInfo = ({
             <Text
               style={{
                 color:
-                  !loading && isOpen(period.open_at, period.close_at)
+                  !loading && isOpen(period)
                     ? "green"
                     : "red",
               }}
             >
-              {!loading && isOpen(period.open_at, period.close_at)
+              {!loading && isOpen(period)
                 ? "Open"
                 : "Gesloten"}
             </Text>
