@@ -21,7 +21,6 @@ const LocationCompanyInfo = ({
       let period = {};
       if (periods !== undefined) {
         periods.forEach((element) => {
-          console.log(element.week_day);
           if (element.week_day === day) {
             period = element;
           }
@@ -29,7 +28,6 @@ const LocationCompanyInfo = ({
       }
 
       setPeriod(period);
-      console.log(period);
       setLoading(false);
     } catch (error) {
       console.log(error);
