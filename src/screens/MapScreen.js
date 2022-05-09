@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { View, Button, StyleSheet, Dimensions } from "react-native";
+import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import map_styles from "./../config/map_styles";
 import axios from "axios";
-import MarkerIcon from './../../assets/icons/edit-map-marker-icon.svg'
+import MarkerIcon from "./../../assets/icons/edit-map-marker-icon.svg";
+import FilterIcon from "./../../assets/icons/edit-filter-icon-map.svg";
 import * as Colors from "./../config/colors";
+import { useNavigation } from '@react-navigation/native';
 
-const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
+const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
+  const navigation = useNavigation();
+
   const [region, setRegion] = useState({
     latitude: 52.10095646428125,
     longitude: 4.3380762590705,
@@ -70,6 +74,14 @@ const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
           </Marker>
         ))}
       </MapView>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Filter");
+        }}
+        style={styles.filterBtn}
+      >
+        <FilterIcon style={styles.filterBtnImg} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -83,22 +95,25 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+    zIndex: -1,
   },
   filterBtn: {
+    position: "absolute",
+    right: 30,
+    bottom: 30,
+    justifyContent: "center",
+    backgroundColor: Colors.white,
+    borderWidth: 1.5,
+    borderColor: Colors.primary,
+    borderRadius: 75 / 2,
     width: 75,
     height: 75,
-    right: 0,
-    bottom: "8%",
-    marginRight: 20,
-    borderRadius: 75 / 2,
-    position: "absolute",
-    borderWidth: 1,
-    backgroundColor: "#fff",
-    borderColor: "rgba(201,201,201, 1)",
+    zIndex: 100,
   },
   filterBtnImg: {
-    width: 60,
-    height: 37,
+    width: 50,
+    height: 50,
+    alignSelf: "center",
   },
 });
 
