@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import MapView from "react-native-maps";
+import MapView from "react-native-map-clustering";
 import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { View, Button, StyleSheet, Dimensions } from "react-native";
 import map_styles from "./../config/map_styles";
 import axios from "axios";
-// import MarkerIcon from './../../assets/icons/edit-map-marker-icon.svg'
-import FilterIcon from "./../../assets/icons/edit-filter-icon.svg";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import MarkerIcon from './../../assets/icons/edit-map-marker-icon.svg'
+import * as Colors from "./../config/colors";
 
 const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
   const [region, setRegion] = useState({
@@ -53,6 +52,7 @@ const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
         provider={PROVIDER_GOOGLE}
         customMapStyle={map_styles}
         initialRegion={region}
+        clusterColor={Colors.primary}
       >
         {markers.map((location, index) => (
           <Marker
@@ -66,7 +66,7 @@ const MapScreen = ({ navigation, setCurrentLocation, onMarkerPress }) => {
               longitude: location.long,
             }}
           >
-            {/* <MarkerIcon /> */}
+            <MarkerIcon />
           </Marker>
         ))}
       </MapView>
