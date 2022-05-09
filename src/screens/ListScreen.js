@@ -39,10 +39,10 @@ const ListScreen = (props) => {
           style={{ width: 60, height: 60, marginRight: 10 }}
         />
         <View style={{ alignItems: "flex-start", flex: 1 }}>
-          <Text lg style={{ fontWeight: "bold", color: Colors.black }}>
+          <Text style={{ fontWeight: "bold", color: Colors.black }}>
             {company.name}
           </Text>
-          <Text sm style={{ color: Colors.black }}>
+          <Text style={{ color: Colors.black }}>
             {company.location_name}
           </Text>
         </View>
@@ -56,6 +56,7 @@ const ListScreen = (props) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Minfal heeft {companies.length} winkels gevonden.</Text>
       <FlatList
         data={companies}
         renderItem={({ item }) => {
@@ -76,9 +77,16 @@ const ListScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 22,
+    marginBottom: 10,
   },
   listItem: {
-    margin: 10,
+    marginVertical: 10,
     paddingHorizontal: 10,
     paddingVertical: 15,
     backgroundColor: "#FFF",
