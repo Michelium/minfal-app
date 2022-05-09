@@ -42,9 +42,7 @@ const ListScreen = (props) => {
           <Text style={{ fontWeight: "bold", color: Colors.black }}>
             {company.name}
           </Text>
-          <Text style={{ color: Colors.black }}>
-            {company.location_name}
-          </Text>
+          <Text style={{ color: Colors.black }}>{company.location_name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -56,8 +54,11 @@ const ListScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Minfal heeft {companies.length} winkels gevonden.</Text>
+      <Text style={styles.title}>
+        Minfal heeft {companies.length} winkels gevonden.
+      </Text>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={companies}
         renderItem={({ item }) => {
           return renderData(item);
