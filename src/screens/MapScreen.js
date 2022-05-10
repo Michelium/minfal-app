@@ -7,7 +7,7 @@ import axios from "axios";
 import MarkerIcon from "./../../assets/icons/edit-map-marker-icon.svg";
 import FilterIcon from "./../../assets/icons/edit-filter-icon-map.svg";
 import * as Colors from "./../config/colors";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import LocationDetailSheet from "../components/location/LocationDetailSheet";
 
 const MapScreen = () => {
@@ -58,13 +58,7 @@ const MapScreen = () => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        provider={PROVIDER_GOOGLE}
-        customMapStyle={map_styles}
-        initialRegion={region}
-        clusterColor={Colors.primary}
-      >
+      <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={map_styles} initialRegion={region} clusterColor={Colors.primary}>
         {markers.map((location, index) => (
           <Marker
             key={index}
@@ -89,12 +83,7 @@ const MapScreen = () => {
       >
         <FilterIcon style={styles.filterBtnImg} />
       </TouchableOpacity>
-      {currentLocation && showDetails && (
-        <LocationDetailSheet
-          location={currentLocation}
-          onClose={_handleShowDetails}
-        />
-      )}
+      {currentLocation && showDetails && <LocationDetailSheet location={currentLocation} onClose={_handleShowDetails} />}
     </View>
   );
 };

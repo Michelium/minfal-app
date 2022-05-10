@@ -11,6 +11,7 @@ import BuildingIcon from "./assets/icons/nav-building-icon.svg";
 import SettingsIcon from "./assets/icons/nav-settings-icon.svg";
 import FilterScreen from "./src/screens/FilterScreen";
 import ListScreen from "./src/screens/ListScreen";
+import MapScreen from "./src/screens/MapScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -38,6 +39,14 @@ const App = () => {
         <Drawer.Screen
           name="Home"
           component={HomeScreen}
+          options={{
+            headerShown: false,
+            drawerItemStyle: { display: "none" },
+          }}
+        />
+        <Drawer.Screen
+          name="Map"
+          component={MapScreen}
           options={{
             headerTitle: "Minfal",
             drawerLabel: "Naar de kaart",
