@@ -8,8 +8,9 @@ import MarkerIcon from "./../../assets/icons/edit-map-marker-icon.svg";
 import FilterIcon from "./../../assets/icons/edit-filter-icon-map.svg";
 import * as Colors from "./../config/colors";
 import { useNavigation } from '@react-navigation/native';
+import LocationDetailSheet from "../components/location/LocationDetailSheet";
 
-const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
+const MapScreen = () => {
   const navigation = useNavigation();
 
   const [region, setRegion] = useState({
@@ -20,6 +21,12 @@ const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
   });
 
   const [markers, setMarkers] = useState([]);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const _handleShowDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   const getMarkers = async () => {
     try {
@@ -62,7 +69,7 @@ const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
           <Marker
             key={index}
             onPress={() => {
-              onMarkerPress();
+              _handleShowDetails();
               setCurrentLocation(location.id);
             }}
             coordinate={{
@@ -82,6 +89,12 @@ const MapScreen = ({ setCurrentLocation, onMarkerPress }) => {
       >
         <FilterIcon style={styles.filterBtnImg} />
       </TouchableOpacity>
+      {currentLocation && showDetails && (
+        <LocationDetailSheet
+          location={currentLocation}
+          onClose={_handleShowDetails}
+        />
+      )}
     </View>
   );
 };

@@ -1,28 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import LocationDetailSheet from "../components/location/LocationDetailSheet";
 import MapScreen from "./MapScreen";
+import Onboarding from 'react-native-onboarding-swiper';
 
 const HomeScreen = () => {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
 
-  const _handleShowDetails = () => {
-    setShowDetails(!showDetails);
-  };
 
   return (
+    
     <View style={styles.container}>
-      <MapScreen
-        onMarkerPress={_handleShowDetails}
-        setCurrentLocation={setCurrentLocation}
-      />
-      {currentLocation && showDetails && (
-        <LocationDetailSheet
-          location={currentLocation}
-          onClose={_handleShowDetails}
-        />
-      )}
+      <MapScreen/>
     </View>
   );
 };
