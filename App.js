@@ -12,6 +12,7 @@ import SettingsIcon from "./assets/icons/nav-settings-icon.svg";
 import FilterScreen from "./src/screens/FilterScreen";
 import ListScreen from "./src/screens/ListScreen";
 import MapScreen from "./src/screens/MapScreen";
+import EntrepreneurScreen from "./src/screens/EntrepreneurScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -82,7 +83,7 @@ const App = () => {
         /> */}
         <Drawer.Screen
           name="Shop"
-          component={HomeScreen}
+          component={MapScreen}
           options={{
             headerTitle: "Minfal Shop",
             drawerLabel: "Minfal Shop",
@@ -91,7 +92,7 @@ const App = () => {
         />
         <Drawer.Screen
           name="Settings"
-          component={HomeScreen}
+          component={MapScreen}
           options={{
             headerTitle: "Instellingen",
             drawerLabel: "Instellingen",
@@ -103,6 +104,14 @@ const App = () => {
           component={ListScreen}
           options={{
             headerTitle: "Winkels in de buurt",
+            drawerItemStyle: { display: "none" },
+          }}
+        />
+        <Drawer.Screen
+          name="Entrepreneur"
+          component={EntrepreneurScreen}
+          options={{
+            headerShown: false,
             drawerItemStyle: { display: "none" },
           }}
         />

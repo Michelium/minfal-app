@@ -54,7 +54,7 @@ const HomeScreen = ({ navigation }) => {
                   style={styles.entrepreneurButton}
                   onPress={() => {
                     storeUserMode("entrepreneur");
-                    onboardingRef.current.goNext();
+                    navigation.navigate('Entrepreneur');
                   }}
                 >
                   <Text>Ondernemer</Text>
