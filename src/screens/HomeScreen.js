@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
-import { View, Text, StyleSheet, Image, Button } from "react-native";
-import MapScreen from "./MapScreen";
+import { View, Text, StyleSheet, Image } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Colors from "./../config/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import BakeryImage from "./../../assets/images/home/bakery.svg";
+import ChairPhoneImage from "./../../assets/images/home/chair-phone.svg";
+import PhoneMapImage from "./../../assets/images/home/phone-map.svg";
+import TwoPhonesImage from "./../../assets/images/home/two-phones.svg";
 
 const HomeScreen = ({ navigation }) => {
   const onboardingRef = useRef(null);
@@ -30,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
         pages={[
           {
             backgroundColor: Colors.white,
-            image: <Image source={require("./../../assets/images/home/welcome1.png")} />,
+            image: <ChairPhoneImage/>,
             title: (
               <View>
                 <Text style={styles.title}>Welkom</Text>
@@ -61,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
           },
           {
             backgroundColor: Colors.white,
-            image: <Image source={require("./../../assets/images/home/welcome1.png")} />,
+            image: <BakeryImage style={{marginLeft: -80}}/>,
             title: (
               <View>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Recyclen kan...</Text>
@@ -86,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
           },
           {
             backgroundColor: Colors.white,
-            image: <Image source={require("./../../assets/images/home/welcome1.png")} />,
+            image: <TwoPhonesImage/>,
             title: (
               <View style={{ alignItems: "center" }}>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Soorten bedrijven</Text>
@@ -102,10 +105,11 @@ const HomeScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             ),
+            subtitle: '',
           },
           {
             backgroundColor: Colors.white,
-            image: <Image source={require("./../../assets/images/home/welcome1.png")} />,
+            image: <PhoneMapImage/>,
             title: (
               <View style={{ alignContent: "center" }}>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Stel een plaats in en zoek meteen ondernemers in de buurt!</Text>
@@ -129,6 +133,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               </View>
             ),
+            subtitle: '',
           },
         ]}
       />
