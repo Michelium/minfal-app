@@ -5,7 +5,7 @@ import LocationDetailSheet from "../components/location/LocationDetailSheet";
 import * as Colors from "./../config/colors";
 
 const ListScreen = (props) => {
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -14,14 +14,14 @@ const ListScreen = (props) => {
   };
 
   const fetchCompanies = () => {
-    const companies = props.route.params.companies;
-    if (companies !== null) {
-      setCompanies(companies);
-      return;
+    if (props.route.params.data) {
+      setCompanies(props.route.params.data);
     }
-
-    // todo axios fetch of all companies when this list will be in the drawer menu
   };
+
+  useEffect(() => {
+    fetchCompanies();
+  }, [props]);
 
   const renderData = (company) => {
     return (
@@ -39,38 +39,28 @@ const ListScreen = (props) => {
           style={{ width: 60, height: 60, marginRight: 10 }}
         />
         <View style={{ alignItems: "flex-start", flex: 1 }}>
-          <Text style={{ fontWeight: "bold", color: Colors.black }}>
-            {company.name}
-          </Text>
+          <Text style={{ fontWeight: "bold", color: Colors.black }}>{company.name}</Text>
           <Text style={{ color: Colors.black }}>{company.location_name}</Text>
         </View>
       </TouchableOpacity>
     );
   };
 
-  useEffect(() => {
-    fetchCompanies();
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        Minfal heeft {companies.length} winkels gevonden.
-      </Text>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={companies}
-        renderItem={({ item }) => {
-          return renderData(item);
-        }}
-        keyExtractor={(item) => `${item.id}`}
-      />
-      {currentLocation && showDetails && (
-        <LocationDetailSheet
-          location={currentLocation}
-          onClose={_handleShowDetails}
+      <Text style={styles.title}>Minfal heeft {Object.keys(companies).length} winkels gevonden.</Text>
+      {companies != {} && (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={Object.values(companies)}
+          renderItem={({ item }) => {
+            return renderData(item);
+          }}
+          keyExtractor={(item) => `${item.id}`}
         />
       )}
+
+      {currentLocation && showDetails && <LocationDetailSheet location={currentLocation} onClose={_handleShowDetails} />}
     </View>
   );
 };

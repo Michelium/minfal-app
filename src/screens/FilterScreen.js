@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -15,22 +15,26 @@ const FilterScreen = ({navigation}) => {
 
   const fetchCompanies = async () => {
     try {
-      axios({
+      const response = await axios({
         method: "post",
         url: "https://app.minfal.nl/api/companies",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0',
         },
         data: {
-          category: category,
-          rating: rating,
+          "category": category,
+          "rating": rating,
+          "opened": opened,
         },
-      }).then((response) => {
-        navigation.navigate('List', {
-          companies: response.data
-        })
       });
+      
+      if (response.status === 200) {
+        navigation.navigate('List', {data: response.data});
+      };
     } catch (error) {
       alert(error);
     };
