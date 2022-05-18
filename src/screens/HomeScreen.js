@@ -1,24 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Colors from "./../config/colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import BakeryImage from "./../../assets/images/home/bakery.svg";
 import ChairPhoneImage from "./../../assets/images/home/chair-phone.svg";
 import PhoneMapImage from "./../../assets/images/home/phone-map.svg";
 import TwoPhonesImage from "./../../assets/images/home/two-phones.svg";
+import { setStorageValue, getStorageValue } from "../helpers";
 
 const HomeScreen = ({ navigation }) => {
   const onboardingRef = useRef(null);
-
-  const storeUserMode = async (value) => {
-    try {
-      await AsyncStorage.setItem("user_mode", value);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -33,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
         pages={[
           {
             backgroundColor: Colors.white,
-            image: <ChairPhoneImage/>,
+            image: <ChairPhoneImage />,
             title: (
               <View>
                 <Text style={styles.title}>Welkom</Text>
@@ -44,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity
                   style={styles.mainButton}
                   onPress={() => {
-                    storeUserMode("client");
+                    setStorageValue("user_mode", "client");
                     onboardingRef.current.goNext();
                   }}
                 >
@@ -53,8 +45,8 @@ const HomeScreen = ({ navigation }) => {
                 <TouchableOpacity
                   style={styles.entrepreneurButton}
                   onPress={() => {
-                    storeUserMode("entrepreneur");
-                    navigation.navigate('Entrepreneur');
+                    setStorageValue("user_mode", "entrepreneur");
+                    navigation.navigate("Entrepreneur");
                   }}
                 >
                   <Text>Ondernemer</Text>
@@ -64,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
           },
           {
             backgroundColor: Colors.white,
-            image: <BakeryImage style={{marginLeft: -80}}/>,
+            image: <BakeryImage style={{ marginLeft: -80 }} />,
             title: (
               <View>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Recyclen kan...</Text>
@@ -89,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
           },
           {
             backgroundColor: Colors.white,
-            image: <TwoPhonesImage/>,
+            image: <TwoPhonesImage />,
             title: (
               <View style={{ alignItems: "center" }}>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Soorten bedrijven</Text>
@@ -105,15 +97,15 @@ const HomeScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             ),
-            subtitle: '',
+            subtitle: "",
           },
           {
             backgroundColor: Colors.white,
-            image: <PhoneMapImage/>,
+            image: <PhoneMapImage />,
             title: (
               <View style={{ alignContent: "center" }}>
                 <Text style={{ textAlign: "center", fontSize: 25 }}>Stel een plaats in en zoek meteen ondernemers in de buurt!</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                   <TouchableOpacity
                     style={[styles.mainButton, { width: 150 }]}
                     onPress={() => {
@@ -123,7 +115,7 @@ const HomeScreen = ({ navigation }) => {
                     <Text>Naar de kaart</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[styles.mainButton, {width: 150}]}
+                    style={[styles.mainButton, { width: 150 }]}
                     onPress={() => {
                       navigation.navigate("Filter");
                     }}
@@ -133,7 +125,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               </View>
             ),
-            subtitle: '',
+            subtitle: "",
           },
         ]}
       />
