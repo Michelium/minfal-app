@@ -7,7 +7,10 @@ import BakeryImage from "./../../assets/images/home/bakery.svg";
 import ChairPhoneImage from "./../../assets/images/home/chair-phone.svg";
 import PhoneMapImage from "./../../assets/images/home/phone-map.svg";
 import TwoPhonesImage from "./../../assets/images/home/two-phones.svg";
-import { setStorageValue, getStorageValue } from "../helpers";
+import ScreenOne from "../components/home/ScreenOne";
+import ScreenTwo from "../components/home/ScreenTwo";
+import ScreenThree from "../components/home/ScreenThree";
+import ScreenFour from "../components/home/ScreenFour";
 
 const HomeScreen = ({ navigation }) => {
   const onboardingRef = useRef(null);
@@ -26,105 +29,25 @@ const HomeScreen = ({ navigation }) => {
           {
             backgroundColor: Colors.white,
             image: <ChairPhoneImage />,
-            title: (
-              <View>
-                <Text style={styles.title}>Welkom</Text>
-              </View>
-            ),
-            subtitle: (
-              <View>
-                <TouchableOpacity
-                  style={styles.mainButton}
-                  onPress={() => {
-                    setStorageValue("user_mode", "client");
-                    onboardingRef.current.goNext();
-                  }}
-                >
-                  <Text>Ga door</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.entrepreneurButton}
-                  onPress={() => {
-                    setStorageValue("user_mode", "entrepreneur");
-                    navigation.navigate("Entrepreneur");
-                  }}
-                >
-                  <Text>Ondernemer</Text>
-                </TouchableOpacity>
-              </View>
-            ),
+            title: <ScreenOne onboardingRef={onboardingRef} />,
+            subtitle: "",
           },
           {
             backgroundColor: Colors.white,
             image: <BakeryImage style={{ marginLeft: -80 }} />,
-            title: (
-              <View>
-                <Text style={{ textAlign: "center", fontSize: 25 }}>Recyclen kan...</Text>
-                <Text style={{ fontSize: 25 }}>
-                  Tóch is <Text style={{ color: Colors.primary }}>hergebruiken</Text> véél beter!
-                </Text>
-              </View>
-            ),
-            subtitle: (
-              <View style={{ width: "90%", alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 18, marginTop: 50 }}>Winkelen met je eigen verpakking was nog nooit zó makkelijk!</Text>
-                <TouchableOpacity
-                  style={styles.mainButton}
-                  onPress={() => {
-                    onboardingRef.current.goNext();
-                  }}
-                >
-                  <Text>Volgende</Text>
-                </TouchableOpacity>
-              </View>
-            ),
+            title: <ScreenTwo onboardingRef={onboardingRef} />,
+            subtitle: "",
           },
           {
             backgroundColor: Colors.white,
             image: <TwoPhonesImage />,
-            title: (
-              <View style={{ alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 25 }}>Soorten bedrijven</Text>
-                <Text style={{ fontSize: 18, marginTop: 50 }}>Ondernemers met Plus geven je</Text>
-                <Text style={{ fontSize: 20, color: Colors.primary, marginTop: 50 }}>Exlusieve Minfal korting</Text>
-                <TouchableOpacity
-                  style={styles.mainButton}
-                  onPress={() => {
-                    onboardingRef.current.goNext();
-                  }}
-                >
-                  <Text>Volgende</Text>
-                </TouchableOpacity>
-              </View>
-            ),
+            title: <ScreenThree onboardingRef={onboardingRef}/>,
             subtitle: "",
           },
           {
             backgroundColor: Colors.white,
             image: <PhoneMapImage />,
-            title: (
-              <View style={{ alignContent: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 25 }}>Stel een plaats in en zoek meteen ondernemers in de buurt!</Text>
-                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                  <TouchableOpacity
-                    style={[styles.mainButton, { width: 150 }]}
-                    onPress={() => {
-                      navigation.navigate("Map");
-                    }}
-                  >
-                    <Text>Naar de kaart</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.mainButton, { width: 150 }]}
-                    onPress={() => {
-                      navigation.navigate("Filter");
-                    }}
-                  >
-                    <Text>Filter bedrijven</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            ),
+            title: <ScreenFour onboardingRef={onboardingRef}/>,
             subtitle: "",
           },
         ]}

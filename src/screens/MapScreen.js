@@ -25,7 +25,8 @@ const MapScreen = () => {
   const [markers, setMarkers] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [location, setLocation] = useState(null);
+  const [locationAccess, setLocationAccess] = useState(false);
+  const [locationData, setLocationData] = useState(null);
 
   const _handleShowDetails = () => {
     setShowDetails(!showDetails);
@@ -55,53 +56,49 @@ const MapScreen = () => {
     }
   };
 
-  const getLocation = async () => {
+  const getLocationData = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      setLocation(false);
+      setLocationData(false);
       return;
     }
 
     let locationData = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
     if (locationData) {
-      setRegion({...region,
-        latitude: locationData.coords.latitude,
-        longitude: locationData.coords.longitude,
-      })
-      setLocation(locationData);
+      setLocationData(locationData);
+      setRegion({ ...region, latitude: locationData.coords.latitude, longitude: locationData.coords.longitude });
     } else {
-      setLocation(false);
+      setLocationAccess(false);
       return;
     }
   };
 
   useEffect(() => {
     getMarkers();
-    getLocation();
+    getLocationData();
   }, []);
 
   return (
     <View style={styles.container}>
-      {location === false ||
-        (location instanceof Object && location.hasOwnProperty("coords") && (
-          <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={map_styles} initialRegion={region} clusterColor={Colors.primary}>
-            {markers.map((location, index) => (
-              <Marker
-                key={index}
-                onPress={() => {
-                  _handleShowDetails();
-                  setCurrentLocation(location.id);
-                }}
-                coordinate={{
-                  latitude: location.lat,
-                  longitude: location.long,
-                }}
-              >
-                <MarkerIcon />
-              </Marker>
-            ))}
-          </MapView>
-        ))}
+      {(locationData === false || (locationData instanceof Object && locationData.hasOwnProperty("coords"))) && (
+        <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={map_styles} initialRegion={region} clusterColor={Colors.primary}>
+          {markers.map((location, index) => (
+            <Marker
+              key={index}
+              onPress={() => {
+                _handleShowDetails();
+                setCurrentLocation(location.id);
+              }}
+              coordinate={{
+                latitude: location.lat,
+                longitude: location.long,
+              }}
+            >
+              <MarkerIcon />
+            </Marker>
+          ))}
+        </MapView>
+      )}
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Filter");
