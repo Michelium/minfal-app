@@ -3,31 +3,30 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./src/screens/HomeScreen";
 import * as Colors from "./src/config/colors";
-import GlobeIcon from "./assets/icons/edit-globe-icon.svg";
-import LocationIcon from "./assets/icons/nav-location-icon.svg";
-import HelpIcon from "./assets/icons/nav-help-icon.svg";
-import HandShakeIcon from "./assets/icons/nav-handshake-icon.svg";
-import BuildingIcon from "./assets/icons/nav-building-icon.svg";
-import SettingsIcon from "./assets/icons/nav-settings-icon.svg";
 import FilterScreen from "./src/screens/FilterScreen";
 import ListScreen from "./src/screens/ListScreen";
 import MapScreen from "./src/screens/MapScreen";
 import EntrepreneurScreen from "./src/screens/EntrepreneurScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
-import { ApplicationProvider } from '@ui-kitten/components';
-import * as eva from '@eva-design/eva';
-import { default as theme } from './src/config/custom-theme.json'
-import { default as mapping } from './src/config/mapping.json'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ApplicationProvider } from "@ui-kitten/components";
+import * as eva from "@eva-design/eva";
+import { default as theme } from "./src/config/custom-theme.json";
+import { default as mapping } from "./src/config/mapping.json";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons'; 
+import { StatusBar } from 'expo-status-bar';
+import FilterStackScreen from "./src/navigators/FilterStackScreen";
+import HomeStackScreen from "./src/navigators/HomeStackScreen";
+
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <ApplicationProvider {...eva} theme={{...eva.light, ...theme}} customMapping={mapping}>
+    <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping}>
       <NavigationContainer>
-        <Drawer.Navigator
+        <StatusBar style="light" />
+        <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
             headerStyle: {
@@ -37,101 +36,60 @@ const App = () => {
             headerTitleStyle: {
               color: Colors.white,
             },
-            drawerStyle: {
-              backgroundColor: Colors.primary,
-            },
-            drawerLabelStyle: {
-              color: Colors.white,
-            },
+            tabBarActiveTintColor: Colors.primary,
+            tabBarLabelStyle: {
+              fontWeight: '600',
+              fontSize: 12,
+            }
           }}
         >
-          <Drawer.Screen
+          <Tab.Screen
             name="Home"
-            component={HomeScreen}
+            component={HomeStackScreen}
             options={{
+              title: "Home",
+              tabBarIcon: ({focused}) => <FontAwesome name="home" size={24} color={focused ? Colors.primary : "black"} />,
               headerShown: false,
-              drawerItemStyle: { display: "none" },
+              tabBarStyle: {
+                display: 'none',
+              }
             }}
           />
-          <Drawer.Screen
+          <Tab.Screen
+            name="Filter"
+            component={FilterStackScreen}
+            options={{
+              title: "In de buurt",
+              tabBarIcon: ({focused}) => <FontAwesome name="filter" size={24} color={focused ? Colors.primary : "black"} />,
+              headerShown: false,
+            }}
+          />
+          <Tab.Screen
             name="Map"
             component={MapScreen}
             options={{
-              headerTitle: "Minfal",
-              drawerLabel: "Naar de kaart",
-              drawerIcon: () => <GlobeIcon />,
+              title: "Kaart",
+              tabBarIcon: ({focused}) => <FontAwesome5 name="map-marker-alt" size={22} color={focused ? Colors.primary : "black"} />,
+              headerShown: false,
             }}
           />
-          <Drawer.Screen
-            name="Filter"
-            component={FilterScreen}
-            options={{
-              headerTitle: "In de buurt",
-              drawerLabel: "In de buurt",
-              drawerIcon: () => <LocationIcon />,
-            }}
-          />
-          {/* <Drawer.Screen
-          name="About"
-          component={HomeScreen}
-          options={{
-            headerTitle: "Hoe werkt het",
-            drawerLabel: "Hoe werkt het?",
-            drawerIcon: () => <HelpIcon />,
-          }}
-        /> */}
-          {/* <Drawer.Screen
-          name="News"
-          component={HomeScreen}
-          options={{
-            headerTitle: "Ontwikkelingen Minfal",
-            drawerLabel: "Ontwikkelingen Minfal",
-            drawerIcon: () => <BuildingIcon />,
-          }}
-        /> */}
-          <Drawer.Screen
+          <Tab.Screen
             name="Shop"
             component={MapScreen}
             options={{
-              headerTitle: "Minfal Shop",
-              drawerLabel: "Minfal Shop",
-              drawerIcon: () => <HandShakeIcon />,
+              title: "Winkel",
+              tabBarIcon: ({focused}) => <FontAwesome5 name="store" size={18} color={focused ? Colors.primary : "black"} />,
             }}
           />
-          <Drawer.Screen
+          <Tab.Screen
             name="Settings"
             component={MapScreen}
             options={{
-              headerTitle: "Instellingen",
-              drawerLabel: "Instellingen",
-              drawerIcon: () => <SettingsIcon />,
+              title: "Instellingen",
+              tabBarIcon: ({focused}) => <MaterialIcons name="menu" size={35} color={focused ? Colors.primary : "black"} />,
             }}
           />
-          <Drawer.Screen
-            name="List"
-            component={ListScreen}
-            options={{
-              headerTitle: "Winkels in de buurt",
-              drawerItemStyle: { display: "none" },
-            }}
-          />
-          <Drawer.Screen
-            name="Entrepreneur"
-            component={EntrepreneurScreen}
-            options={{
-              headerShown: false,
-              drawerItemStyle: { display: "none" },
-            }}
-          />
-          <Drawer.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{
-              headerShown: false,
-              drawerItemStyle: { display: "none" },
-            }}
-          />
-        </Drawer.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </ApplicationProvider>
   );
