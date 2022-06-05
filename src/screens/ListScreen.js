@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, FlatList, Image } from "react-native";
+import { Text } from "@ui-kitten/components";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LocationDetailSheet from "../components/location/LocationDetailSheet";
 import * as Colors from "./../config/colors";
@@ -48,7 +49,7 @@ const ListScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Minfal heeft {Object.keys(companies).length} winkels gevonden.</Text>
+      <Text style={styles.title} category="h2">Minfal heeft {Object.keys(companies).length} winkels gevonden.</Text>
       {companies != {} && (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -72,8 +73,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 22,
     marginBottom: 10,
   },
   listItem: {

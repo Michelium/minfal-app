@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Text } from "@ui-kitten/components";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Colors from "./../config/colors";
 import FilterFoodType from "./../components/filter/FilterFoodType";
@@ -8,7 +9,7 @@ import FilterRatings from "./../components/filter/FilterRatings";
 import FilterFooter from "./../components/filter/FilterFooter";
 import axios from "axios";
 
-const FilterScreen = ({navigation}) => {
+const FilterScreen = ({ navigation }) => {
   const [category, setCategory] = useState("alle");
   const [rating, setRating] = useState("alle");
   const [opened, setOpened] = useState(false);
@@ -21,29 +22,31 @@ const FilterScreen = ({navigation}) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'Expires': '0',
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Expires: "0",
         },
         data: {
-          "category": category,
-          "rating": rating,
-          "opened": opened,
+          category: category,
+          rating: rating,
+          opened: opened,
         },
       });
-        console.log(response);
+      console.log(response);
       if (response.status === 200) {
-        navigation.navigate('List', {data: response.data});
-      };
+        navigation.navigate("List", { data: response.data });
+      }
     } catch (error) {
       alert(error);
-    };
+    }
   };
 
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Filters</Text>
+        <Text category="h2" style={styles.title}>
+          Filters
+        </Text>
         <FilterFoodType category={category} setCategory={setCategory} />
         <FilterRatings rating={rating} setRating={setRating} />
         <FilterFooter opened={opened} setOpened={setOpened} />
@@ -65,8 +68,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 22,
+    // fontWeight: "bold",
+    // fontSize: 22,
   },
   searchButton: {
     backgroundColor: Colors.primary,
