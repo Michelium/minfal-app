@@ -13,57 +13,65 @@ import FilterScreen from "./src/screens/FilterScreen";
 import ListScreen from "./src/screens/ListScreen";
 import MapScreen from "./src/screens/MapScreen";
 import EntrepreneurScreen from "./src/screens/EntrepreneurScreen";
+import RegisterScreen from "./src/screens/RegisterScreen";
+import { ApplicationProvider } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
+import { default as theme } from './src/config/custom-theme.json'
+import { default as mapping } from './src/config/mapping.json'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: Colors.primary,
-          },
-          headerTintColor: Colors.white,
-          headerTitleStyle: {
-            color: Colors.white,
-          },
-          drawerStyle: {
-            backgroundColor: Colors.primary,
-          },
-          drawerLabelStyle: {
-            color: Colors.white,
-          },
-        }}
-      >
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false,
-            drawerItemStyle: { display: "none" },
+    <ApplicationProvider {...eva} theme={{...eva.light, ...theme}} customMapping={mapping}>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Colors.primary,
+            },
+            headerTintColor: Colors.white,
+            headerTitleStyle: {
+              color: Colors.white,
+            },
+            drawerStyle: {
+              backgroundColor: Colors.primary,
+            },
+            drawerLabelStyle: {
+              color: Colors.white,
+            },
           }}
-        />
-        <Drawer.Screen
-          name="Map"
-          component={MapScreen}
-          options={{
-            headerTitle: "Minfal",
-            drawerLabel: "Naar de kaart",
-            drawerIcon: () => <GlobeIcon />,
-          }}
-        />
-        <Drawer.Screen
-          name="Filter"
-          component={FilterScreen}
-          options={{
-            headerTitle: "In de buurt",
-            drawerLabel: "In de buurt",
-            drawerIcon: () => <LocationIcon />,
-          }}
-        />
-        {/* <Drawer.Screen
+        >
+          <Drawer.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerShown: false,
+              drawerItemStyle: { display: "none" },
+            }}
+          />
+          <Drawer.Screen
+            name="Map"
+            component={MapScreen}
+            options={{
+              headerTitle: "Minfal",
+              drawerLabel: "Naar de kaart",
+              drawerIcon: () => <GlobeIcon />,
+            }}
+          />
+          <Drawer.Screen
+            name="Filter"
+            component={FilterScreen}
+            options={{
+              headerTitle: "In de buurt",
+              drawerLabel: "In de buurt",
+              drawerIcon: () => <LocationIcon />,
+            }}
+          />
+          {/* <Drawer.Screen
           name="About"
           component={HomeScreen}
           options={{
@@ -72,7 +80,7 @@ const App = () => {
             drawerIcon: () => <HelpIcon />,
           }}
         /> */}
-        {/* <Drawer.Screen
+          {/* <Drawer.Screen
           name="News"
           component={HomeScreen}
           options={{
@@ -81,42 +89,51 @@ const App = () => {
             drawerIcon: () => <BuildingIcon />,
           }}
         /> */}
-        <Drawer.Screen
-          name="Shop"
-          component={MapScreen}
-          options={{
-            headerTitle: "Minfal Shop",
-            drawerLabel: "Minfal Shop",
-            drawerIcon: () => <HandShakeIcon />,
-          }}
-        />
-        <Drawer.Screen
-          name="Settings"
-          component={MapScreen}
-          options={{
-            headerTitle: "Instellingen",
-            drawerLabel: "Instellingen",
-            drawerIcon: () => <SettingsIcon />,
-          }}
-        />
-        <Drawer.Screen
-          name="List"
-          component={ListScreen}
-          options={{
-            headerTitle: "Winkels in de buurt",
-            drawerItemStyle: { display: "none" },
-          }}
-        />
-        <Drawer.Screen
-          name="Entrepreneur"
-          component={EntrepreneurScreen}
-          options={{
-            headerShown: false,
-            drawerItemStyle: { display: "none" },
-          }}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+          <Drawer.Screen
+            name="Shop"
+            component={MapScreen}
+            options={{
+              headerTitle: "Minfal Shop",
+              drawerLabel: "Minfal Shop",
+              drawerIcon: () => <HandShakeIcon />,
+            }}
+          />
+          <Drawer.Screen
+            name="Settings"
+            component={MapScreen}
+            options={{
+              headerTitle: "Instellingen",
+              drawerLabel: "Instellingen",
+              drawerIcon: () => <SettingsIcon />,
+            }}
+          />
+          <Drawer.Screen
+            name="List"
+            component={ListScreen}
+            options={{
+              headerTitle: "Winkels in de buurt",
+              drawerItemStyle: { display: "none" },
+            }}
+          />
+          <Drawer.Screen
+            name="Entrepreneur"
+            component={EntrepreneurScreen}
+            options={{
+              headerShown: false,
+              drawerItemStyle: { display: "none" },
+            }}
+          />
+          <Drawer.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              headerShown: false,
+              drawerItemStyle: { display: "none" },
+            }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </ApplicationProvider>
   );
 };
 
