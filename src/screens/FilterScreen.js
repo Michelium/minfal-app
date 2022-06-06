@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "@ui-kitten/components";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Colors from "./../config/colors";
 import FilterFoodType from "./../components/filter/FilterFoodType";
 import FilterRatings from "./../components/filter/FilterRatings";
