@@ -13,8 +13,8 @@ const MoreScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <MoreItem text='Over deze app' icon={<MaterialCommunityIcons name="information" size={24} color={Colors.primary} />} onPressIn={() => {navigation.navigate('EntrepreneurLogin')}} />
         <MoreItem text='Inloggen voor ondernemers' icon={<MaterialCommunityIcons name="login" size={24} color={Colors.primary} />} onPressIn={() => {navigation.navigate('EntrepreneurLogin')}} />
+        <MoreItem text='Over deze app' icon={<MaterialCommunityIcons name="information" size={24} color={Colors.primary} />} onPressIn={() => {navigation.navigate('AboutApp')}} />
       </ScrollView>
     </View>
   );

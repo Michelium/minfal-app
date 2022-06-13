@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Colors from "../config/colors";
 import EntrepreneurLogin from './../components/more/EntrepreneurLogin';
 import MoreScreen from '../screens/MoreScreen';
+import AboutApp from '../components/more/AboutApp';
 
 const MoreStack = createNativeStackNavigator();
 
@@ -24,6 +25,9 @@ const MoreStackScreen = () => {
       <MoreStack.Screen name="Home" component={MoreScreen} />
       <MoreStack.Screen name="EntrepreneurLogin" component={EntrepreneurLogin} options={{
         title: 'Inloggen voor ondernemers',
+      }} />
+      <MoreStack.Screen name="AboutApp" component={AboutApp} options={{
+        title: 'Over deze App',
       }} />
     </MoreStack.Navigator>
   );
