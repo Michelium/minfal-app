@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 15,
-    paddingVertical: 20,
+    paddingTop: 20,
   },
   title: {
     marginBottom: 10,
