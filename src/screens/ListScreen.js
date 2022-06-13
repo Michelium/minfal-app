@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
 import { Text } from "@ui-kitten/components";
-import LocationDetailSheet from "../components/location/LocationDetailSheet";
 import * as Colors from "./../config/colors";
 
 const ListScreen = (props) => {
   const [companies, setCompanies] = useState({});
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
 
-  const _handleShowDetails = () => {
-    setShowDetails(!showDetails);
+  const _handleShowDetails = (company) => {
+    props.navigation.navigate("Detail", { location: company.id });
   };
 
   const fetchCompanies = () => {
@@ -28,8 +25,7 @@ const ListScreen = (props) => {
       <TouchableOpacity
         style={styles.listItem}
         onPress={() => {
-          setCurrentLocation(company.id);
-          _handleShowDetails();
+          _handleShowDetails(company);
         }}
       >
         <Image
@@ -61,8 +57,6 @@ const ListScreen = (props) => {
           keyExtractor={(item) => `${item.id}`}
         />
       )}
-
-      {currentLocation && showDetails && <LocationDetailSheet location={currentLocation} onClose={_handleShowDetails} />}
     </View>
   );
 };

@@ -31,7 +31,6 @@ const FilterScreen = ({ navigation }) => {
           opened: opened,
         },
       });
-      console.log(response);
       if (response.status === 200) {
         navigation.navigate("List", { data: response.data });
       }

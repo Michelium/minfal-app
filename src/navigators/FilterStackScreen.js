@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FilterScreen from '../screens/FilterScreen';
 import ListScreen from '../screens/ListScreen';
 import * as Colors from "./../../src/config/colors";
+import DetailScreen from '../screens/DetailScreen';
 
 const FilterStack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const FilterStackScreen = () => {
     >
       <FilterStack.Screen name="Home" component={FilterScreen} />
       <FilterStack.Screen name="List" component={ListScreen} />
+      <FilterStack.Screen name="Detail" component={DetailScreen} />
     </FilterStack.Navigator>
   );
 }

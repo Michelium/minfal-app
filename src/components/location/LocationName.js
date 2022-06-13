@@ -7,7 +7,7 @@ const LocationName = ({ name, location_name, logo }) => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{paddingHorizontal: 15, paddingVertical: 10,}}>
         <Text style={{ fontSize: 22, fontWeight: "500", marginBottom: 5 }}>
           {name}
         </Text>
