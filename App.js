@@ -17,7 +17,7 @@ import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import FilterStackScreen from "./src/navigators/FilterStackScreen";
 import HomeStackScreen from "./src/navigators/HomeStackScreen";
-import SettingsStackScreen from "./src/navigators/SettingsStackScreen";
+import MoreStackScreen from "./src/navigators/MoreStackScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -83,10 +83,10 @@ const App = () => {
             }}
           />
           <Tab.Screen
-            name="Settings"
-            component={SettingsStackScreen}
+            name="More"
+            component={MoreStackScreen}
             options={{
-              title: "Instellingen",
+              title: "Meer",
               tabBarIcon: ({focused}) => <MaterialIcons name="menu" size={35} color={focused ? Colors.primary : "black"} />,
               headerShown: false,
             }}

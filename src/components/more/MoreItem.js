@@ -14,7 +14,8 @@ const Setting = ({ text, icon, ...props }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginVertical: 15,
   },
   title: {
     marginLeft: 15,
