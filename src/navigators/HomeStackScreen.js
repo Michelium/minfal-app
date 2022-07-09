@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as Colors from "./../../src/config/colors";
+import * as Colors from "../config/colors";
 import HomeScreen from '../screens/HomeScreen';
 import EntrepreneurScreen from '../screens/EntrepreneurScreen';
 
@@ -10,11 +10,18 @@ const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator
       screenOptions={{
-        headerShown: false,
+        title: 'Home',
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTintColor: Colors.white,
+        headerTitleStyle: {
+          color: Colors.white,
+        },
+        headerBackTitleVisible: false,
       }}
     >
-      <HomeStack.Screen name="Client" component={HomeScreen} />
-      <HomeStack.Screen name="Entrepreneur" component={EntrepreneurScreen} />
+      <HomeStack.Screen name="Home" component={HomeScreen} />
     </HomeStack.Navigator>
   );
 }

@@ -99,14 +99,6 @@ const MapScreen = () => {
           ))}
         </MapView>
       )}
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Filter");
-        }}
-        style={styles.filterBtn}
-      >
-        <FilterIcon style={styles.filterBtnImg} />
-      </TouchableOpacity>
       {currentLocation && showDetails && <LocationDetailSheet location={currentLocation} onClose={_handleShowDetails} />}
     </View>
   );

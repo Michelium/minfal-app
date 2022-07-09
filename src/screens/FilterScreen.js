@@ -42,7 +42,7 @@ const FilterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text category="h2" style={styles.title}>
+        <Text category="h2">
           Filters
         </Text>
         <FilterFoodType category={category} setCategory={setCategory} />
@@ -64,10 +64,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flex: 1,
     justifyContent: "space-between",
-  },
-  title: {
-    // fontWeight: "bold",
-    // fontSize: 22,
   },
   searchButton: {
     backgroundColor: Colors.primary,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "./src/screens/HomeScreen";
+import IntroScreen from "./src/screens/IntroScreen";
 import * as Colors from "./src/config/colors";
 import FilterScreen from "./src/screens/FilterScreen";
 import ListScreen from "./src/screens/ListScreen";
@@ -18,6 +18,7 @@ import { StatusBar } from 'expo-status-bar';
 import FilterStackScreen from "./src/navigators/FilterStackScreen";
 import HomeStackScreen from "./src/navigators/HomeStackScreen";
 import MoreStackScreen from "./src/navigators/MoreStackScreen";
+import IntroStackScreen from "./src/navigators/IntroStackScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -44,6 +45,19 @@ const App = () => {
             }
           }}
         >
+
+          <Tab.Screen
+            name="Intro"
+            component={IntroStackScreen}
+            options={{
+              title: "Intro",
+              tabBarIcon: ({focused}) => <FontAwesome name="home" size={24} color={focused ? Colors.primary : "black"} />,
+              headerShown: false,
+              tabBarStyle: {
+                display: 'none',
+              },
+            }}
+          />
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
@@ -51,9 +65,6 @@ const App = () => {
               title: "Home",
               tabBarIcon: ({focused}) => <FontAwesome name="home" size={24} color={focused ? Colors.primary : "black"} />,
               headerShown: false,
-              tabBarStyle: {
-                display: 'none',
-              }
             }}
           />
           <Tab.Screen

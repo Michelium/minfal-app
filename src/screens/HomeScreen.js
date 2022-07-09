@@ -1,85 +1,34 @@
-import React, { useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import Onboarding from "react-native-onboarding-swiper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import * as Colors from "./../config/colors";
-import BakeryImage from "./../../assets/images/home/bakery.svg";
-import ChairPhoneImage from "./../../assets/images/home/chair-phone.svg";
-import PhoneMapImage from "./../../assets/images/home/phone-map.svg";
-import TwoPhonesImage from "./../../assets/images/home/two-phones.svg";
-import ScreenOne from "../components/home/ScreenOne";
-import ScreenTwo from "../components/home/ScreenTwo";
-import ScreenThree from "../components/home/ScreenThree";
-import ScreenFour from "../components/home/ScreenFour";
+import React from "react";
+
+import { View, StyleSheet } from "react-native";
+import { Text } from "@ui-kitten/components";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import * as Colors from "../config/colors";
+import MoreItem from "../components/more/MoreItem";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import HomeBlock from './../components/home/HomeBlock'
+
 
 const HomeScreen = ({ navigation }) => {
-  const onboardingRef = useRef(null);
 
   return (
     <View style={styles.container}>
-      <Onboarding
-        ref={onboardingRef}
-        onDone={() => console.log("done")}
-        showSkip={false}
-        containerStyles={{
-          flex: 1,
-        }}
-        showPagination={false}
-        pages={[
-          {
-            backgroundColor: Colors.white,
-            image: <ChairPhoneImage />,
-            title: <ScreenOne onboardingRef={onboardingRef} />,
-            subtitle: "",
-          },
-          {
-            backgroundColor: Colors.white,
-            image: <BakeryImage style={{ marginLeft: -80 }} />,
-            title: <ScreenTwo onboardingRef={onboardingRef} />,
-            subtitle: "",
-          },
-          {
-            backgroundColor: Colors.white,
-            image: <TwoPhonesImage />,
-            title: <ScreenThree onboardingRef={onboardingRef}/>,
-            subtitle: "",
-          },
-          {
-            backgroundColor: Colors.white,
-            image: <PhoneMapImage />,
-            title: <ScreenFour onboardingRef={onboardingRef}/>,
-            subtitle: "",
-          },
-        ]}
-      />
+      <Text category="h2" style={styles.title}>Goedemiddag, tering hoer</Text>
+      <ScrollView>
+        <HomeBlock title='Mijn buurt'/>
+        <HomeBlock title='Binnenkort...'/>
+        <HomeBlock title='Quiz'/>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     flex: 1,
-  },
-  title: {
-    fontWeight: "400",
-    fontSize: 45,
-  },
-  mainButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: Colors.primary,
-    width: 250,
-    height: 45,
-    marginTop: 30,
-  },
-  entrepreneurButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 45,
-    marginTop: 10,
+    // justifyContent: "space-between",
   },
 });
 
