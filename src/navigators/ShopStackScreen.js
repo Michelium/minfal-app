@@ -1,16 +1,15 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Colors from "../config/colors";
-import HomeScreen from '../screens/HomeScreen';
-import EntrepreneurScreen from '../screens/EntrepreneurScreen';
+import ShopScreen from '../screens/ShopScreen';
 
-const HomeStack = createNativeStackNavigator();
+const ShopStack = createNativeStackNavigator();
 
-const HomeStackScreen = () => {
+const ShopStackScreen = () => {
   return (
-    <HomeStack.Navigator
+    <ShopStack.Navigator
       screenOptions={{
-        title: 'Home',
+        title: 'Minfal winkel',
         headerStyle: {
           backgroundColor: Colors.primary,
         },
@@ -21,9 +20,9 @@ const HomeStackScreen = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <HomeStack.Screen name="Index" component={HomeScreen} />
-    </HomeStack.Navigator>
+      <ShopStack.Screen name="Home" component={ShopScreen} />
+    </ShopStack.Navigator>
   );
 }
 
-export default HomeStackScreen;
+export default ShopStackScreen;

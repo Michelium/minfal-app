@@ -19,6 +19,7 @@ import FilterStackScreen from "./src/navigators/FilterStackScreen";
 import HomeStackScreen from "./src/navigators/HomeStackScreen";
 import MoreStackScreen from "./src/navigators/MoreStackScreen";
 import IntroStackScreen from "./src/navigators/IntroStackScreen";
+import ShopStackScreen from "./src/navigators/ShopStackScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -53,9 +54,7 @@ const App = () => {
               title: "Intro",
               tabBarIcon: ({focused}) => <FontAwesome name="home" size={24} color={focused ? Colors.primary : "black"} />,
               headerShown: false,
-              tabBarStyle: {
-                display: 'none',
-              },
+              tabBarButton: (props) => null,
             }}
           />
           <Tab.Screen
@@ -87,10 +86,11 @@ const App = () => {
           />
           <Tab.Screen
             name="Shop"
-            component={MapScreen}
+            component={ShopStackScreen}
             options={{
               title: "Winkel",
               tabBarIcon: ({focused}) => <FontAwesome5 name="store" size={18} color={focused ? Colors.primary : "black"} />,
+              headerShown: false,
             }}
           />
           <Tab.Screen

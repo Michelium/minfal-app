@@ -4,13 +4,23 @@ import { Text } from "@ui-kitten/components";
 import { getSetting } from "./../../helpers";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Colors from "./../../config/colors";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeBlock = ({title}) => {
+const HomeBlock = ({ title, location, image }) => {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity>
-        <View style={styles.container}>
-            <Text style={{ marginLeft: 10 }} category="h2">{title}</Text>
-        </View>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate(location);
+      }}
+    >
+      <View style={styles.container}>
+        <Text style={{ marginLeft: 10 }} category="h2">
+          {title}
+        </Text>
+        {image}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -22,7 +32,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     borderWidth: 3,
     borderRadius: 30,
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
     marginBottom: 25,
   },
