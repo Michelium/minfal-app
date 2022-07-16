@@ -7,11 +7,13 @@ import FilterFoodType from "./../components/filter/FilterFoodType";
 import FilterRatings from "./../components/filter/FilterRatings";
 import FilterFooter from "./../components/filter/FilterFooter";
 import axios from "axios";
+import { getCityApiData, getStorageValue } from "../helpers";
 
 const FilterScreen = ({ navigation }) => {
   const [category, setCategory] = useState("alle");
   const [rating, setRating] = useState("alle");
   const [opened, setOpened] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
 
   const fetchCompanies = async () => {
     try {
@@ -39,12 +41,54 @@ const FilterScreen = ({ navigation }) => {
     }
   };
 
+  const fetchLocation = async () => {
+    if ((await getStorageValue("locationAccess")) === "true") {
+      const latitude = await getStorageValue("userLatitude");
+      const longitude = await getStorageValue("userLongitude");
+
+      const data = await getCityApiData(latitude, longitude);
+
+      const locality = data.locality;
+      const place = data.localityInfo.administrative.find((element) => element.adminLevel === 10) ?? null;
+      const municipality = data.localityInfo.administrative.find((element) => element.adminLevel === 8) ?? null;
+
+      console.log(locality);
+      console.log(place);
+      console.log(municipality);
+      // return;
+
+      let userLocation = locality;
+      if (place !== null) {
+        if (locality !== place.name) {
+          userLocation += ", " + place.name;
+        }
+      }
+      if (municipality !== null) {
+        if ((place === null || municipality.name !== place.name) && municipality.name !== locality.name) {
+          userLocation += ", " + municipality.name;
+        }
+      }
+
+      console.log(userLocation);
+      setUserLocation(userLocation);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View>
-        <Text category="h2">
-          Filters
+        <Text category="h2" style={{ marginBottom: 20 }}>
+          In de buurt
         </Text>
+        {userLocation !== null && (
+          <Text category="h5" style={{ marginBottom: 20 }}>
+            {userLocation}
+          </Text>
+        )}
         <FilterFoodType category={category} setCategory={setCategory} />
         <FilterRatings rating={rating} setRating={setRating} />
         <FilterFooter opened={opened} setOpened={setOpened} />

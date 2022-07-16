@@ -3,7 +3,7 @@ import axios from "axios";
 import * as Location from "expo-location";
 
 export async function setStorageValue(key, value) {
-  if (typeof value !== 'string' || !value instanceof String) {
+  if (typeof value !== "string" || !value instanceof String) {
     value = value.toString();
   }
 
@@ -17,13 +17,15 @@ export async function setStorageValue(key, value) {
 export async function getStorageValue(key) {
   try {
     let storageValue = null;
-    await AsyncStorage.getItem(key).then((value) => {
-      storageValue = value;
-      return value;
-    }).then(value => {
-      storageValue = value;
-      return value;
-    });
+    await AsyncStorage.getItem(key)
+      .then((value) => {
+        storageValue = value;
+        return value;
+      })
+      .then((value) => {
+        storageValue = value;
+        return value;
+      });
     return storageValue;
   } catch (error) {
     console.log(error);
@@ -58,22 +60,20 @@ export async function getSetting(name) {
   return setting;
 }
 
-export async function saveUserLocationData() {
-  let { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== "granted") {
-    setStorageValue("locationAccess", 0);
-    return;
+export async function getCityApiData(latitude, longitude) {
+  let data = null;
+  try {
+    const response = await axios({
+      method: "get",
+      url: "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude="+latitude+"&longitude="+longitude+"&localityLanguage=nl",
+    }).then((response) => {
+      if (response.status === 200) {
+        data = response.data;
+      }
+    });
+  } catch (error) {
+    alert(error);
   }
 
-  let locationData = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-  if (locationData) {
-    console.log(locationData);
-    // setStorageValue("userLatitude", locationData.coords.latitude);
-    // setStorageValue("userLongitude", locationData.coords.longitude);
-    // setLocationData(locationData);
-    // setRegion({ ...region, latitude: locationData.coords.latitude, longitude: locationData.coords.longitude });
-  } else {
-    setStorageValue("locationAccess", 0);
-    return;
-  }
+  return data;
 }
