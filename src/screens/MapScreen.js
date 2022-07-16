@@ -5,11 +5,9 @@ import { View, Text, Button, StyleSheet, Dimensions, TouchableOpacity } from "re
 import map_styles from "./../config/map_styles";
 import axios from "axios";
 import MarkerIcon from "./../../assets/icons/edit-map-marker-icon.svg";
-import FilterIcon from "./../../assets/icons/edit-filter-icon-map.svg";
 import * as Colors from "./../config/colors";
 import { useNavigation } from "@react-navigation/native";
 import LocationDetailSheet from "../components/location/LocationDetailSheet";
-import * as Location from "expo-location";
 import { getStorageValue } from "../helpers";
 
 const MapScreen = () => {
@@ -25,7 +23,6 @@ const MapScreen = () => {
   const [markers, setMarkers] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [locationAccess, setLocationAccess] = useState(false);
   const [locationData, setLocationData] = useState(null);
 
   const _handleShowDetails = () => {
@@ -57,20 +54,18 @@ const MapScreen = () => {
   };
 
   const getLocationData = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setLocationData(false);
-      return;
-    }
-
-    let locationData = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-    if (locationData) {
-      setLocationData(locationData);
-      setRegion({ ...region, latitude: locationData.coords.latitude, longitude: locationData.coords.longitude });
+    if ((await getStorageValue("locationAccess")) === "true") {
+      const latitude = await getStorageValue("userLatitude");
+      const longitude = await getStorageValue("userLongitude");
+      setRegion({ ...region, latitude: Number(latitude), longitude: Number(longitude) });
+      setLocationData({
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      });
     } else {
-      setLocationAccess(false);
-      return;
+      setLocationData(false);
     }
+    return;
   };
 
   useEffect(() => {
@@ -80,7 +75,7 @@ const MapScreen = () => {
 
   return (
     <View style={styles.container}>
-      {(locationData === false || (locationData instanceof Object && locationData.hasOwnProperty("coords"))) && (
+      {(locationData === false || locationData instanceof Object) && (
         <MapView style={styles.map} provider={PROVIDER_GOOGLE} customMapStyle={map_styles} initialRegion={region} clusterColor={Colors.primary}>
           {markers.map((location, index) => (
             <Marker
@@ -114,24 +109,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     zIndex: -1,
-  },
-  filterBtn: {
-    position: "absolute",
-    right: 30,
-    bottom: 30,
-    justifyContent: "center",
-    backgroundColor: Colors.white,
-    borderWidth: 1.5,
-    borderColor: Colors.primary,
-    borderRadius: 75 / 2,
-    width: 75,
-    height: 75,
-    zIndex: 100,
-  },
-  filterBtnImg: {
-    width: 50,
-    height: 50,
-    alignSelf: "center",
   },
 });
 
