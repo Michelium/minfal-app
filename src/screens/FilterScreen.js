@@ -52,11 +52,6 @@ const FilterScreen = ({ navigation }) => {
       const place = data.localityInfo.administrative.find((element) => element.adminLevel === 10) ?? null;
       const municipality = data.localityInfo.administrative.find((element) => element.adminLevel === 8) ?? null;
 
-      console.log(locality);
-      console.log(place);
-      console.log(municipality);
-      // return;
-
       let userLocation = locality;
       if (place !== null) {
         if (locality !== place.name) {
@@ -69,7 +64,6 @@ const FilterScreen = ({ navigation }) => {
         }
       }
 
-      console.log(userLocation);
       setUserLocation(userLocation);
     }
   };
