@@ -6,17 +6,24 @@ import * as Colors from "./../config/colors";
 import FilterFoodType from "./../components/filter/FilterFoodType";
 import FilterRatings from "./../components/filter/FilterRatings";
 import FilterFooter from "./../components/filter/FilterFooter";
+import FilterDistance from "./../components/filter/FilterDistance";
 import axios from "axios";
 import { getCityApiData, getStorageValue } from "../helpers";
 
 const FilterScreen = ({ navigation }) => {
   const [category, setCategory] = useState("alle");
+  const [distance, setDistance] = useState(null);
   const [rating, setRating] = useState("alle");
   const [opened, setOpened] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
 
   const fetchCompanies = async () => {
     try {
+      if ((await getStorageValue("locationAccess")) === "true") {
+        const latitude = await getStorageValue("userLatitude");
+        const longitude = await getStorageValue("userLongitude");
+      }
+
       const response = await axios({
         method: "post",
         url: "https://app.minfal.nl/api/companies",
@@ -31,6 +38,9 @@ const FilterScreen = ({ navigation }) => {
           category: category,
           rating: rating,
           opened: opened,
+          distance: distance,
+          latitude: await getStorageValue("userLatitude") !== null ? await getStorageValue("userLatitude") : null,
+          longitude: await getStorageValue("userLongitude") !== null ? await getStorageValue("userLongitude") : null,
         },
       });
       if (response.status === 200) {
@@ -65,6 +75,7 @@ const FilterScreen = ({ navigation }) => {
       }
 
       setUserLocation(userLocation);
+      setDistance(10);
     }
   };
 
@@ -79,9 +90,12 @@ const FilterScreen = ({ navigation }) => {
           In de buurt
         </Text>
         {userLocation !== null && (
-          <Text category="h5" style={{ marginBottom: 20 }}>
-            {userLocation}
-          </Text>
+          <>
+            <Text category="h5" style={{ marginBottom: 20 }}>
+              {userLocation}
+            </Text>
+            <FilterDistance distance={distance} setDistance={setDistance} />
+          </>
         )}
         <FilterFoodType category={category} setCategory={setCategory} />
         <FilterRatings rating={rating} setRating={setRating} />

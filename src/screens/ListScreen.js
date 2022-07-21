@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
 import { Text } from "@ui-kitten/components";
 import * as Colors from "./../config/colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 const ListScreen = (props) => {
   const [companies, setCompanies] = useState({});
@@ -37,6 +38,12 @@ const ListScreen = (props) => {
         <View style={{ alignItems: "flex-start", flex: 1 }}>
           <Text style={{ fontWeight: "bold", color: Colors.black }}>{company.name}</Text>
           <Text style={{ color: Colors.black }}>{company.location_name}</Text>
+          {company.distance !== undefined && (
+            <View style={{flexDirection: 'row', marginTop: 10,}}>
+              <MaterialCommunityIcons name="map-marker-distance" size={15} color="black" />
+              <Text category="p2"> {company.distance} km</Text>
+            </View>
+          )}
         </View>
       </TouchableOpacity>
     );
